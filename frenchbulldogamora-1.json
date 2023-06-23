@@ -1,0 +1,16 @@
+{
+  "description": "Amora é da raça bulldog francês e pertence à Maria Eduarda", 
+  "external_url": "https://tudosobrecachorros.com.br/buldogue-frances/", 
+  "image": "https://raw.githubusercontent.com/toledux/meunft/main/FrenchBulldogAmora_1.jpg", 
+  "name": "Bulldog Francê Amora",
+  "attributes": [
+    {
+      "trait_type": "Nascimento", 
+      "value": "17/12/2017"
+    },
+    {
+      "trait_type": "Core", 
+      "value": "Branca com tigrada/preta"
+    }
+  ]
+}
