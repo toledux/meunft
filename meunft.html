@@ -8,7 +8,7 @@
   </head>
   <body>
     <header>
-      <h1>Meu NFT 4</h1>
+      <h1>Meu NFT 5</h1>
     </header>
     <section>
       <h2>Dados NFT</h2>
@@ -91,20 +91,14 @@
 
                 }
             }
-            let signer = null;
-            let provider;
-            let network;
-            let contract;
-            init();
+            
 
-        });  
-    </script>
-    <script>
-        $(documento).ready(function(){
+
             $("#botaoMintar").click(function(event){
                 event.preventDefault();
                 alert("Aguarde e confirme a transação no Metamask");
-                
+                signer = provider.getSigner();
+                contract = new ethers.Contract("0x835471409bf5addba59737f3989427a97c891d84", abi, signer);
                 const tx = contract.safeMint($("#formTo").val(), $("#formMetadados").val());
                 console.log("tx enviada: ", tx);
                 alert("Transação enviada a Blockchain. Aguarde.\nTx ID:" + tx.hash);
@@ -115,15 +109,15 @@
                     $("#formMint")[0].reset();
                 }
 
-                let signer = null;
-                let provider;
-                let network;
-                let contract;
-                init();
-
             }); 
-        });
-        
-      </script>
+
+            let signer = null;
+            let provider;
+            let network;
+            let contract;
+            init();
+
+        });  
+    </script>
   </body>
 </html>
