@@ -8,7 +8,7 @@
   </head>
   <body>
     <header>
-      <h1>Meu NFT 3</h1>
+      <h1>Meu NFT 2</h1>
     </header>
     <section>
       <h2>Dados NFT</h2>
@@ -50,11 +50,8 @@
                 // Create a contract
                 const nftNomeObj = await contract.name();
                 $("#nftNome").text(nftNomeObj);
-                
                 const metadadosURL = await contract.tokenURI(0);
-                
                 console.log("metadadosURL: ", metadadosURL);
-                //const metadadadosResp = await fetch(metadadosURL);
                 fetch(metadadosURL)
                     .then(function(response) {
                         if (response.ok) {
@@ -65,7 +62,7 @@
                     .then(function(data) {
                         // Process the response data here
                         console.log(data);
-                        onsole.log("metadadadosResp Body: ", data);
+                        console.log("metadadadosResp Body: ", data);
                         const metadados = data.json();
 
                         $("#nftDescricao").text(metadados.description);
@@ -76,16 +73,6 @@
                         console.log('Error:', error.message);
                     });
 
-                /**
-                console.log("metadadadosResp: ", metadadadosResp);
-                const metadados = await metadadadosResp.json();
-                console.log("metadadadosResp Body: ", metadados);
-                const nftDesc = document.getElementById("nftDescricao");
-                nftDesc.innerHTML = metadados.description;
-                const imgNFT = document.getElementById("imgNFT");
-                imgNFT.src = metadados.image;
-                const divImg = document.getElementById("divImg");
-                divImg.style.display = "block";**/
                 }
             }
             let signer = null;
