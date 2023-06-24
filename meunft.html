@@ -54,8 +54,29 @@
                 const metadadosURL = await contract.tokenURI(0);
                 
                 console.log("metadadosURL: ", metadadosURL);
-                const metadadadosResp = await fetch(metadadosURL);
-                
+                //const metadadadosResp = await fetch(metadadosURL);
+                fetch(metadadosURL)
+                    .then(function(response) {
+                        if (response.ok) {
+                        return response.json();
+                        }
+                        throw new Error('Network response was not ok.');
+                    })
+                    .then(function(data) {
+                        // Process the response data here
+                        console.log(data);
+                        onsole.log("metadadadosResp Body: ", data);
+                        const metadados = data.json();
+
+                        $("#nftDescricao").text(metadados.description);
+                        $("#imgNFT").attr("src",metadados.image);
+                        $("#divImg").attr("style","display: block");
+                    })
+                    .catch(function(error) {
+                        console.log('Error:', error.message);
+                    });
+
+                /**
                 console.log("metadadadosResp: ", metadadadosResp);
                 const metadados = await metadadadosResp.json();
                 console.log("metadadadosResp Body: ", metadados);
@@ -64,7 +85,7 @@
                 const imgNFT = document.getElementById("imgNFT");
                 imgNFT.src = metadados.image;
                 const divImg = document.getElementById("divImg");
-                divImg.style.display = "block";
+                divImg.style.display = "block";**/
                 }
             }
             let signer = null;
