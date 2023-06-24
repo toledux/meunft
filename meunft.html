@@ -8,7 +8,7 @@
   </head>
   <body>
     <header>
-      <h1>Meu NFT 4</h1>
+      <h1>Meu NFT 5</h1>
     </header>
     <section>
       <h2>Dados NFT</h2>
@@ -63,7 +63,7 @@
                         // Process the response data here
                         console.log(data);
                         console.log("metadadadosResp Body: ", data);
-                        const metadados = data.json();
+                        const metadados = data;
 
                         $("#nftDescricao").text(metadados.description);
                         $("#imgNFT").attr("src",metadados.image);
