@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Meu NFT</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  </head>
+  <body>
+    <header>
+      <h1>Meu NFT</h1>
+    </header>
+    <section>
+      <h2>Dados NFT</h2>
+      <h3>Nome: <span id="nftNome">&nbsp;</span></h3>
+      <h5>Descrição: <span id="nftDescricao">&nbsp;</span></h5>
+      <div id="divImg" style="display: none">
+        <img width="200" height="200" id="imgNFT" src="" alt="imagem NFT" />
+      </div>
+    </section>
+    <hr />
+    <section>
+      <h2>Rede e Infra</h2>
+      <h3>Conta selectionada: <span id="contaSelecionada">&nbsp;</span></h3>
+      <h3>Rede selecionada: <span id="redeSelecionada">&nbsp;</span></h3>
+    </section>
+    <script src="frenchbulldogamora.abi.js"></script>
+    <script type="module">
+      import { ethers } from "https://cdnjs.cloudflare.com/ajax/libs/ethers/6.6.1/ethers.min.js";
+      async function init() {
+        if (window.ethereum == null) {
+          console.log("MetaMask não está instalado; utilizando somente leitura");
+          provider = ethers.getDefaultProvider();
+        } else {
+          provider = new ethers.BrowserProvider(window.ethereum);
+          alert("O Metamask irá pedir aprovação para acessar essa página.\nPor favor, aceite.");
+          signer = await provider.getSigner();
+          network = await provider.getNetwork();
+          contract = new ethers.Contract("0x835471409bf5addba59737f3989427a97c891d84", abi, provider);
+          console.log("Provedor Selecionado: ", provider);
+          console.log("Rede:", network);
+          console.log("Assinador: ", signer);
+          console.log("contrato: ", contract);
+
+          const networkAccount = document.getElementById("contaSelecionada");
+          networkAccount.innerHTML = signer.address;
+          const networkNetworkID = document.getElementById("redeSelecionada");
+          networkNetworkID.innerHTML = network.chainId;
+          // Create a contract
+          const nftNomeObj = await contract.name();
+          const nftNome = document.getElementById("nftNome");
+          nftNome.innerHTML = nftNomeObj;
+          const metadadosURL = await contract.tokenURI(0);
+          console.log("metadadosURL: ", metadadosURL);
+          const metadadadosResp = await fetch(metadadosURL);
+          console.log("metadadadosResp: ", metadadadosResp);
+          const metadados = await metadadadosResp.json();
+          console.log("metadadadosResp Body: ", metadados);
+          const nftDesc = document.getElementById("nftDesc");
+          nftDesc.innerHTML = metadados.description;
+          const imgNFT = document.getElementById("imgNFT");
+          imgNFT.src = metadados.image;
+          const divImg = document.getElementById("divImg");
+          divImg.style.display = "block";
+        }
+      }
+      let signer = null;
+      let provider;
+      let network;
+      let contract;
+      init();
+    </script>
+  </body>
+</html>
