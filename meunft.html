@@ -8,7 +8,7 @@
   </head>
   <body>
     <header>
-      <h1>Meu NFT 3</h1>
+      <h1>Meu NFT 4</h1>
     </header>
     <section>
       <h2>Dados NFT</h2>
@@ -44,7 +44,7 @@
 
     <script src="frenchbulldogamora.abi.js"></script>
     <script type="module">
-        import { ethers } from "https://cdnjs.cloudflare.com/ajax/libs/ethers/6.6.1/ethers.min.js";
+        import { ethers } from "https://cdnjs.cloudflare.com/ajax/libs/ethers/6.6.1/ethers.umd.min.js";
         
         $(document).ready(function(){
             async function init() {
@@ -105,10 +105,10 @@
                 event.preventDefault();
                 alert("Aguarde e confirme a transação no Metamask");
                 
-                const tx = await contract.safeMint($("#formTo").val(), $("#formMetadados").val());
+                const tx = contract.safeMint($("#formTo").val(), $("#formMetadados").val());
                 console.log("tx enviada: ", tx);
                 alert("Transação enviada a Blockchain. Aguarde.\nTx ID:" + tx.hash);
-                const txReceipt = await tx.wait();
+                const txReceipt = tx.wait();
                 console.log("txReceipt: ", txReceipt);
                 if (txReceipt.status === 1) {
                     alert("Parabéns! Novo NFT gerado");
