@@ -8,7 +8,7 @@
   </head>
   <body>
     <header>
-      <h1>Meu NFT 1</h1>
+      <h1>Meu NFT 2</h1>
     </header>
     <section>
       <h2>Dados NFT</h2>
@@ -45,19 +45,21 @@
                 console.log("contrato: ", contract);
 
                 $("#contaSelecionada").text(signer.address);
-                const networkNetworkID = document.getElementById("redeSelecionada");
-                networkNetworkID.innerHTML = network.chainId;
+                $("#redeSelecionada").text(network.chainId);
+                
                 // Create a contract
                 const nftNomeObj = await contract.name();
-                const nftNome = document.getElementById("nftNome");
-                nftNome.innerHTML = nftNomeObj;
+                $("#nftNome").text(nftNomeObj);
+                
                 const metadadosURL = await contract.tokenURI(0);
+                
                 console.log("metadadosURL: ", metadadosURL);
                 const metadadadosResp = await fetch(metadadosURL);
+                
                 console.log("metadadadosResp: ", metadadadosResp);
                 const metadados = await metadadadosResp.json();
                 console.log("metadadadosResp Body: ", metadados);
-                const nftDesc = document.getElementById("nftDesc");
+                const nftDesc = document.getElementById("nftDescricao");
                 nftDesc.innerHTML = metadados.description;
                 const imgNFT = document.getElementById("imgNFT");
                 imgNFT.src = metadados.image;
