@@ -8,7 +8,7 @@
   </head>
   <body>
     <header>
-      <h1>Meu NFT 4</h1>
+      <h1>Meu NFT 6</h1>
     </header>
     <section>
       <h2>Dados NFT</h2>
@@ -98,7 +98,7 @@
             $("#botaoMintar").click(function(event){
                 event.preventDefault();
                 alert("Aguarde e confirme a transação no Metamask");
-                provider = ethers.getDefaultProvider();
+                provider = new ethers.BrowserProvider(window.ethereum);
                 signer = provider.getSigner();
                 contract = new ethers.Contract("0x835471409bf5addba59737f3989427a97c891d84", abi, signer);
                 contract.safeMint($("#formTo").val(), $("#formMetadados").val()).then(function(tx) {
