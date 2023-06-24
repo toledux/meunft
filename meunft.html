@@ -8,7 +8,7 @@
   </head>
   <body>
     <header>
-      <h1>Meu NFT 2</h1>
+      <h1>Meu NFT 3</h1>
     </header>
     <section>
       <h2>Dados NFT</h2>
@@ -24,6 +24,24 @@
       <h3>Conta selectionada: <span id="contaSelecionada">&nbsp;</span></h3>
       <h3>Rede selecionada: <span id="redeSelecionada">&nbsp;</span></h3>
     </section>
+    <section>
+        <h2>Novo NFT</h2>
+        <div>
+          <form action="" name="formMint" id="formMint" method="get">
+            <label for="formTo">Endereço da destinatário:</label>
+            <br /><br />
+            <input type="text" placeholder="<0x...>" required name="formTo" id="formTo" />
+            <br /><br />
+            <label for="formMetadados">URL Metadados:</label>
+            <br /><br />
+            <input type="text" placeholder="https://..." required name="formMetadados" id="formMetadados" />
+            <br /><br />
+            <input type="button" id="botaoMintar" value="Mintar (gerar) NFT" />
+          </form>
+        </div>
+      </section>
+
+
     <script src="frenchbulldogamora.abi.js"></script>
     <script type="module">
         import { ethers } from "https://cdnjs.cloudflare.com/ajax/libs/ethers/6.6.1/ethers.min.js";
@@ -79,9 +97,33 @@
             let contract;
             init();
 
-        });
-
-      
+        });  
     </script>
+    <script>
+        $(documento).ready(function(){
+            $("#botaoMintar").click(function(){
+                event.preventDefault();
+                alert("Aguarde e confirme a transação no Metamask");
+                
+                const tx = await contract.safeMint($("#formTo").val(), $("#formMetadados").val());
+                console.log("tx enviada: ", tx);
+                alert("Transação enviada a Blockchain. Aguarde.\nTx ID:" + tx.hash);
+                const txReceipt = await tx.wait();
+                console.log("txReceipt: ", txReceipt);
+                if (txReceipt.status === 1) {
+                    alert("Parabéns! Novo NFT gerado");
+                    $("#formMint")[0].reset();
+                }
+
+                let signer = null;
+                let provider;
+                let network;
+                let contract;
+                init();
+
+            }); 
+        });
+        
+      </script>
   </body>
 </html>
