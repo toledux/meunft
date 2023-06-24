@@ -96,15 +96,15 @@
             
 
 
-            $("#botaoMintar").click(function(event){
+            $("#botaoMintar").click(async function(event){
                 event.preventDefault();
                 alert("Aguarde e confirme a transação no Metamask");
                 signer = provider.getSigner();
                 contract = new ethers.Contract("0x835471409bf5addba59737f3989427a97c891d84", abi, signer);
-                const tx = contract.safeMint($("#formTo").val(), $("#formMetadados").val());
+                const tx = await contract.safeMint($("#formTo").val(), $("#formMetadados").val());
                 console.log("tx enviada: ", tx);
                 alert("Transação enviada a Blockchain. Aguarde.\nTx ID:" + tx.hash);
-                const txReceipt = tx.wait();
+                const txReceipt = await tx.wait();
                 console.log("txReceipt: ", txReceipt);
                 if (txReceipt.status === 1) {
                     alert("Parabéns! Novo NFT gerado");
