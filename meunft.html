@@ -8,7 +8,7 @@
   </head>
   <body>
     <header>
-      <h1>Meu NFT 2</h1>
+      <h1>Meu NFT 4</h1>
     </header>
     <section>
       <h2>Dados NFT</h2>
@@ -50,28 +50,28 @@
         $(document).ready(function(){
             async function init() {
                 if (window.ethereum == null) {
-                console.log("MetaMask não está instalado; utilizando somente leitura");
-                provider = ethers.getDefaultProvider();
+                    console.log("MetaMask não está instalado; utilizando somente leitura");
+                    provider = ethers.getDefaultProvider();
                 } else {
-                provider = new ethers.BrowserProvider(window.ethereum);
-                alert("O Metamask irá pedir aprovação para acessar essa página.\nPor favor, aceite.");
-                signer = await provider.getSigner();
-                network = await provider.getNetwork();
-                contract = new ethers.Contract("0x835471409bf5addba59737f3989427a97c891d84", abi, provider);
-                console.log("Provedor Selecionado: ", provider);
-                console.log("Rede:", network);
-                console.log("Assinador: ", signer);
-                console.log("contrato: ", contract);
+                    provider = new ethers.BrowserProvider(window.ethereum);
+                    alert("O Metamask irá pedir aprovação para acessar essa página.\nPor favor, aceite.");
+                    signer = await provider.getSigner();
+                    network = await provider.getNetwork();
+                    contract = new ethers.Contract("0x835471409bf5addba59737f3989427a97c891d84", abi, provider);
+                    console.log("Provedor Selecionado: ", provider);
+                    console.log("Rede:", network);
+                    console.log("Assinador: ", signer);
+                    console.log("contrato: ", contract);
 
-                $("#contaSelecionada").text(signer.address);
-                $("#redeSelecionada").text(network.chainId);
-                
-                // Create a contract
-                const nftNomeObj = await contract.name();
-                $("#nftNome").text(nftNomeObj);
-                const metadadosURL = await contract.tokenURI(0);
-                console.log("metadadosURL: ", metadadosURL);
-                fetch(metadadosURL)
+                    $("#contaSelecionada").text(signer.address);
+                    $("#redeSelecionada").text(network.chainId);
+                    
+                    // Create a contract
+                    const nftNomeObj = await contract.name();
+                    $("#nftNome").text(nftNomeObj);
+                    const metadadosURL = await contract.tokenURI(0);
+                    console.log("metadadosURL: ", metadadosURL);
+                    fetch(metadadosURL)
                     .then(function(response) {
                         if (response.ok) {
                             return response.json();
@@ -98,6 +98,7 @@
             $("#botaoMintar").click(function(event){
                 event.preventDefault();
                 alert("Aguarde e confirme a transação no Metamask");
+                provider = ethers.getDefaultProvider();
                 signer = provider.getSigner();
                 contract = new ethers.Contract("0x835471409bf5addba59737f3989427a97c891d84", abi, signer);
                 contract.safeMint($("#formTo").val(), $("#formMetadados").val()).then(function(tx) {
